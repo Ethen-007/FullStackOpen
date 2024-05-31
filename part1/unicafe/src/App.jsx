@@ -4,8 +4,16 @@ const Display = ({ text }) => {
   return <h1>{text}</h1>;
 };
 
-const Button = (props) => {
-  return <button onClick={props.onClick}>{props.text}</button>;
+const Button = ({ onClick, text }) => {
+  return <button onClick={onClick}>{text}</button>;
+};
+
+const StatisticLine = ({ text, value }) => {
+  return (
+    <p>
+      {text} {value}
+    </p>
+  );
 };
 
 const Statistics = ({ good, neutral, bad }) => {
@@ -19,32 +27,26 @@ const Statistics = ({ good, neutral, bad }) => {
 
   return (
     <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>average {average.toFixed(2)}</p>
-      <p>positive {positivePercentage.toFixed(2)}%</p>
+      <StatisticLine text="good" value={good} />
+      <StatisticLine text="neutral" value={neutral} />
+      <StatisticLine text="bad" value={bad} />
+      <StatisticLine text="average" value={average.toFixed(2)} />
+      <StatisticLine
+        text="positive"
+        value={`${positivePercentage.toFixed(2)}%`}
+      />
     </div>
   );
 };
 
 const App = () => {
-  // save clicks of each button to its own state
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const goodCount = () => {
-    setGood(good + 1);
-  };
-
-  const neutralCount = () => {
-    setNeutral(neutral + 1);
-  };
-
-  const badCount = () => {
-    setBad(bad + 1);
-  };
+  const goodCount = () => setGood(good + 1);
+  const neutralCount = () => setNeutral(neutral + 1);
+  const badCount = () => setBad(bad + 1);
 
   return (
     <div>
